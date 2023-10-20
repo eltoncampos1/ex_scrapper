@@ -51,7 +51,6 @@ defmodule CoreWeb.UserRegistrationLive do
       socket
       |> assign(trigger_submit: false, check_errors: false, errors: [])
       |> assign_form(changeset)
-      |> IO.inspect()
 
     {:ok, socket, temporary_assigns: [form: nil]}
   end

@@ -8,6 +8,12 @@
 ### nice to have
  - asdf
 
+## Tools
+ - Floki: HTML Parser
+ - Finch: HTTP handler
+ - Iconv: parse utf 8
+ - scrivener_ecto: Pagination
+
 To start your Phoenix server:
 
   * Run Docker to start the Database

@@ -68,6 +68,5 @@ defmodule CoreWeb.UserLoginLiveTest do
 
       assert login_html =~ "Register"
     end
-
   end
 end

@@ -3,6 +3,8 @@ defmodule Core.Scrapper.Page do
   import Ecto.Changeset
   use Core.Schema
 
+  @link_regex ~r/((https?:\/\/)|(ftp:\/\/)|(^))([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)/
+
   @allowed_status [:started, :in_progress, :finished, :error]
 
   @required [:title, :total_links, :link, :user_id]
@@ -24,7 +26,7 @@ defmodule Core.Scrapper.Page do
     |> validate_required(@required)
     |> validate_format(
       :link,
-      ~r/((https?:\/\/)|(ftp:\/\/)|(^))([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+([a-zA-Z]{2,9})(:\d{1,4})?([-\w\/#~:.?+=&%@~]*)/
+      @link_regex
     )
     |> validate_number(:total_links, greater_than: 0)
     |> cast_assoc(:user)
@@ -35,4 +37,6 @@ defmodule Core.Scrapper.Page do
     |> cast(progress, @required ++ @optional)
     |> validate_required(@required)
   end
+
+  def is_valid_link?(link), do: Regex.match?(@link_regex, link)
 end

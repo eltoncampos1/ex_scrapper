@@ -20,7 +20,8 @@ defmodule Core.Application do
       CoreWeb.Endpoint,
       # Start a worker by calling: Core.Worker.start_link(arg)
       # {Core.Worker, arg},
-      {Finch, name: :ex_finch}
+      {Finch, name: :ex_finch},
+      Core.Scrapper
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

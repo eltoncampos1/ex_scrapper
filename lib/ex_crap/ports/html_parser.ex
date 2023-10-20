@@ -3,12 +3,12 @@ defmodule Core.Ports.HtmlParser do
 
   @type html_tree :: term()
 
-  @callback content(html_tree) :: binary()
+  @callback content(html_tree) :: binary() | nil
   @callback get_attribute(binary() | html_tree(), binary()) :: list()
   @callback find_element(html_tree, css_selector :: String.t() | binary()) :: html_tree() | nil
   @callback parse_html(html_string :: String.t()) :: html_tree() | nil
 
-  @spec content(html_tree) :: binary()
+  @spec content(html_tree) :: binary() | nil
   defdelegate content(html_tree), to: @adapter
 
   @spec find_element(html_tree, css_selector :: String.t() | binary()) :: html_tree() | nil

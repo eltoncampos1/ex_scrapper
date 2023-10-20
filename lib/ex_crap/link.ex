@@ -6,7 +6,6 @@ defmodule Core.Link do
   def create(params) do
     %Link{}
     |> Link.changeset(params)
-    |> IO.inspect()
     |> Repo.insert()
   end
 

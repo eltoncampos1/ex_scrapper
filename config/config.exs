@@ -62,11 +62,9 @@ config :phoenix, :json_library, Jason
 
 ## ADAPTERS
 
-config :ex_crap, Core.Ports.HttpHandler,
-  adapter: Core.Adapters.HttpHandler.Finch
+config :ex_crap, Core.Ports.HttpHandler, adapter: Core.Adapters.HttpHandler.Finch
 
-config :ex_crap, Core.Ports.HtmlParser,
-  adapter: Core.Adapters.HtmlParser.Floki
+config :ex_crap, Core.Ports.HtmlParser, adapter: Core.Adapters.HtmlParser.Floki
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -1,6 +1,118 @@
-<section>
-    <form phx-submit="start-scrap">
-    <input type="text" placeholder="add new page" name="page_link">
-    <button type="submit">scrape</button>
+<div class="w-full mx-auto flex items-center justify-center">
+  <section :if={@live_action == :show} class="flex items-center flex-col w-full justify-start">
+    <form phx-submit="start-scrap" class="px-4 sm:px-6 lg:px-8 w-full">
+      <input type="text" placeholder="add new page" name="page_link" class="w-[80%]" />
+      <button class="border bg-slate-400 py-3 rounded-lg px-8 text-white" type="submit">
+        scrape
+      </button>
     </form>
-</section>
+    <div class="px-4 sm:px-6 lg:px-8 w-full">
+      <div class="mt-8 flow-root">
+        <div class="-mx-4 -my-2  sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+            <div class=" shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Title
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Total links
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  <tr :for={page <- @pages} phx-click="page-link" phx-value-id={page.id}>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      <%= page.title %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <%= page.total_links %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section :if={@live_action == :page_links}>
+    <div class="px-4 sm:px-6 lg:px-8 w-full">
+      <div class="mt-8 flow-root">
+        <div class="-mx-4 -my-2  sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+            <div class="shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Title
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Total links
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  <tr :for={link <- @page_links} phx-click="page-link">
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      <%= link.content %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <%= link.href %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav aria-label="Page navigation " class="flex items-center justify-center mt-4 ">
+      <ul class="flex items-center gap-1 -space-x-px text-sm ">
+        <li :if={@page_number > 1}>
+          <.link
+            patch={~p"/page/#{@id}?page=#{@page_number - 1}"}
+            class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Previous
+          </.link>
+        </li>
+        <li :for={i <- Enum.to_list(1..@total_pages)}>
+          <.link
+            patch={~p"/page/#{@id}?page=#{i}"}
+            class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            <%= i %>
+          </.link>
+        </li>
+        <li :if={@page_number != @total_pages}>
+          <.link
+            patch={~p"/page/#{@id}?page=#{@page_number + 1}"}
+            class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            &nbsp; Next &nbsp;
+          </.link>
+        </li>
+      </ul>
+    </nav>
+  </section>
+</div>

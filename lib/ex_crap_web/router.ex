@@ -66,7 +66,8 @@ defmodule CoreWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{CoreWeb.UserAuth, :ensure_authenticated}] do
-        live "/dashboard", DashboardLive, :show
+      live "/dashboard", DashboardLive, :show
+      live "/page/:id", DashboardLive, :page_links
     end
   end
 

@@ -15,9 +15,16 @@ defmodule CoreWeb.UserLoginLive do
         </:subtitle>
       </.header>
 
-      <.simple_form :let={f} for={@form} as={:user} id="login_form" action={~p"/users/log_in"} phx-update="ignore">
-        <.input field={{f, :email }} type="email" label="Email" required />
-        <.input field={{f, :password }} type="password" label="Password" required />
+      <.simple_form
+        :let={f}
+        for={@form}
+        as={:user}
+        id="login_form"
+        action={~p"/users/log_in"}
+        phx-update="ignore"
+      >
+        <.input field={{f, :email}} type="email" label="Email" required />
+        <.input field={{f, :password}} type="password" label="Password" required />
 
         <:actions>
           <.input field={@form[:remember_me]} type="checkbox" label="Keep me logged in" />

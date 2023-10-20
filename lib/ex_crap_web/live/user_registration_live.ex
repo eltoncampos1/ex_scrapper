@@ -19,9 +19,9 @@ defmodule CoreWeb.UserRegistrationLive do
       </.header>
 
       <.simple_form
+        :let={f}
         for={@form}
         as={:user}
-        :let={f}
         id="registration_form"
         phx-submit="save"
         phx-change="validate"
@@ -33,8 +33,8 @@ defmodule CoreWeb.UserRegistrationLive do
           Oops, something went wrong! Please check the errors below.
         </.error>
 
-        <.input field={{f, :email}}  type="email" label="Email" required  />
-        <.input field={{f, :password}}  type="password" label="Password" required />
+        <.input field={{f, :email}} type="email" label="Email" required />
+        <.input field={{f, :password}} type="password" label="Password" required />
 
         <:actions>
           <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>

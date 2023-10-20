@@ -52,6 +52,7 @@ defmodule Core.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
+      {:scrivener_ecto, "~> 2.7"}
     ]
   end
 
